@@ -53,6 +53,15 @@ export default function hist(gsap, ScrollTrigger, mm) {
 
   /* ---------- mobile: fluxo vertical, mídia colada atrás ---------- */
   mm.add('(max-width: 899px)', () => {
+    /* no desktop os nomes atravessam a tela por cima do vídeo. No celular não há
+       travessia: eles precisam aparecer logo abaixo do rótulo que os anuncia,
+       e não soltos no fim da seção — que era onde o HTML os deixava. */
+    const rotulo = sec.querySelector('.hist__lbl');
+    const casaAntiga = names && names.parentNode;
+    const vizinhoAntigo = names && names.nextSibling;
+    if (rotulo && names) rotulo.parentNode.appendChild(names);
+    const nomes = names ? [...names.children] : [];
+
     gsap.set(steps, { opacity: 0, y: 20 });
     const ts = steps.map((s, i) => gsap.to(s, {
       opacity: 1, y: 0, duration: .7, ease: 'power2.out',
@@ -68,7 +77,23 @@ export default function hist(gsap, ScrollTrigger, mm) {
       trigger: s, start: 'top 70%', end: 'bottom 30%',
       onEnter: () => setFrame(i), onEnterBack: () => setFrame(i)
     }));
+    // os nomes entram um a um, junto com o estado a que pertencem
+    let tn = null;
+    if (nomes.length) {
+      gsap.set(nomes, { opacity: 0, y: 12 });
+      tn = gsap.to(nomes, {
+        opacity: 1, y: 0, duration: .5, ease: 'power2.out', stagger: .06,
+        scrollTrigger: { trigger: names, start: 'top 88%', once: true }
+      });
+    }
+
     const cs = count(sec);
-    return () => { ts.forEach(t => t.kill()); sts.forEach(t => t.kill()); cs.forEach(c => c.scrollTrigger && c.scrollTrigger.kill()); };
+    return () => {
+      ts.forEach(t => t.kill()); sts.forEach(t => t.kill());
+      cs.forEach(c => c.scrollTrigger && c.scrollTrigger.kill());
+      tn && tn.scrollTrigger && tn.scrollTrigger.kill();
+      // devolve os nomes para o lugar original, senão o desktop remonta errado
+      if (names && casaAntiga) casaAntiga.insertBefore(names, vizinhoAntigo);
+    };
   });
 }

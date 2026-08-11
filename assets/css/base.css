@@ -191,7 +191,7 @@ blockquote{
 /* ---------------- atmosfera ----------------
    Névoa: duas manchas muito lentas por trás do conteúdo, só para o preto
    não ser chapado. Sem blur (caro) — o próprio gradiente já é macio.
-   Poeira: canvas com poucas partículas, montado pelo poeira.js.        */
+   Bruma: a mesma ideia, mais larga e mais lenta, sobre as cenas de vídeo. */
 .tem-nevoa{position:relative;isolation:isolate}
 .tem-nevoa>*:not(.nevoa){position:relative;z-index:1}
 .nevoa{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
@@ -209,11 +209,25 @@ blockquote{
 @keyframes nevoaA{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(7vw,5vh,0) scale(1.16)}}
 @keyframes nevoaB{from{transform:translate3d(0,0,0) scale(1.12)}to{transform:translate3d(-6vw,-4vh,0) scale(.95)}}
 
-.poeira{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen}
+/* Bruma: a névoa das cenas com vídeo. Duas manchas de luz enormes e
+   muito lentas, em modo screen — é atmosfera, não partícula. */
+.bruma{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.bruma::before,.bruma::after{content:"";position:absolute;border-radius:50%;will-change:transform}
+.bruma::before{
+  width:150%;aspect-ratio:1.6;left:-28%;top:-26%;
+  background:radial-gradient(ellipse at center,rgba(226,203,140,.085),rgba(226,203,140,.028) 42%,transparent 68%);
+  animation:brumaA 64s ease-in-out infinite alternate;
+}
+.bruma::after{
+  width:132%;aspect-ratio:1.4;right:-24%;bottom:-30%;
+  background:radial-gradient(ellipse at center,rgba(245,243,238,.062),rgba(245,243,238,.02) 45%,transparent 70%);
+  animation:brumaB 86s ease-in-out infinite alternate;
+}
+@keyframes brumaA{from{transform:translate3d(-4%,2%,0) scale(1)}to{transform:translate3d(6%,-3%,0) scale(1.22)}}
+@keyframes brumaB{from{transform:translate3d(3%,-2%,0) scale(1.14)}to{transform:translate3d(-5%,4%,0) scale(.95)}}
 
 @media(prefers-reduced-motion:reduce){
-  .nevoa::before,.nevoa::after{animation:none}
-  .poeira{display:none}
+  .nevoa::before,.nevoa::after,.bruma::before,.bruma::after{animation:none}
 }
 
 /* ---------------- dock (CTA fixo · só no fim) ---------------- */

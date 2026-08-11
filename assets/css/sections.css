@@ -477,8 +477,8 @@
   .motion .hist__st+.hist__st{margin-top:clamp(34px,7vw,56px);padding-top:clamp(34px,7vw,56px);
     border-top:1px solid var(--line-2)}
   .motion .hist__names{position:static;opacity:1;flex-wrap:wrap;white-space:normal;
-    gap:8px 16px;font-size:clamp(1.05rem,5vw,1.65rem);margin-top:clamp(18px,4vw,28px);
-    padding-inline:var(--gut);text-shadow:none}
+    gap:10px 18px;font-size:clamp(1.15rem,5.4vw,1.7rem);margin-top:clamp(20px,4.5vw,30px);
+    padding-inline:0;text-shadow:none;line-height:1.1}
   .hist__big{font-size:clamp(2.3rem,10vw,3.4rem)}
 
   /* ---- 05 · ambiência ---- */
@@ -495,21 +495,16 @@
   .motion .amb__payoff{position:relative;z-index:2;opacity:1;margin:clamp(24px,6vw,38px) 0 clamp(40px,8vw,60px);
     text-align:left;background:#050505}
 
-  /* ---- 14 · Marcelo ---- */
-  .mg__pin{display:block}
-  .motion .mg__pin{height:auto;min-height:0;padding:0}
-  .motion .mg__v{position:sticky;top:0;height:44svh;z-index:0}
-  .motion .mg__scrim{position:sticky;top:0;height:44svh;margin-top:-44svh;z-index:1;
-    background:linear-gradient(180deg,rgba(5,5,5,.4),rgba(5,5,5,.92))}
-  .motion .mg__stage{position:relative;z-index:2;min-height:0;display:block;margin-top:-11svh;
-    padding:clamp(24px,5vw,36px) var(--gut) clamp(40px,8vw,60px);
-    background:linear-gradient(180deg,transparent,#050505 18%,#050505)}
-  .motion .mg__l{position:static;transform:none;margin-top:0}
-  .motion .mg__l+.mg__l{margin-top:clamp(30px,6vw,48px);padding-top:clamp(30px,6vw,48px);border-top:1px solid var(--line-2)}
-  .mg__cap{position:static;margin-top:clamp(20px,4vw,32px);padding-inline:var(--gut)}
-  .mg__l{font-size:clamp(1.7rem,7.6vw,2.6rem)}
-  .mg__l--t{font-size:clamp(1.95rem,8.6vw,3rem);max-width:none}
-  .mg__l--sm{font-size:clamp(1.3rem,5.6vw,1.9rem)}
+  /* ---- 14 · Marcelo · a sequência só faz sentido como sequência,
+         então o celular mantém o pin do desktop, mais curto ---- */
+  .mg__l{font-size:clamp(1.55rem,6.8vw,2.2rem)}
+  .mg__l--t{font-size:clamp(1.8rem,8vw,2.5rem);max-width:none}
+  .mg__l--sm{font-size:clamp(1.15rem,5vw,1.6rem)}
+  .mg__l--quote{max-width:none}
+  .mg__mlbl{max-width:none;font-size:14px}
+  .mg__mq{font-size:clamp(1rem,4.4vw,1.3rem)}
+  .mg__fim p{font-size:clamp(1.35rem,6vw,1.9rem)}
+  .mg__cap{display:none}
 
   /* ---- ritmo geral no celular ---- */
   .hero .h-display{max-width:none}
@@ -529,8 +524,8 @@
 }
 
 @media(max-width:619px){
-  .hist__media,.motion .amb__video,.motion .amb__scrim,.motion .mg__v,.motion .mg__scrim{height:42svh}
-  .motion .amb__scrim,.motion .mg__scrim{margin-top:-42svh}
+  .hist__media,.motion .amb__video,.motion .amb__scrim{height:42svh}
+  .motion .amb__scrim{margin-top:-42svh}
 }
 
 /* ═══════ porta de entrada ═══════ */
@@ -719,3 +714,74 @@
 .g10__band video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.9}
 @media(min-width:900px){.g10__grid{grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);align-items:start;gap:clamp(48px,6vw,96px)}}
 @media(max-width:619px){.g10__band{aspect-ratio:16/10}}
+
+/* ============================================================
+   PASSE DE MOBILE — a hierarquia do desktop, na escala do celular.
+   O problema não era o tamanho de um elemento ou outro: era a falta
+   de uma régua. Aqui os papéis ficam com a mesma proporção que têm
+   no desktop, comprimidos para caber em 390px.
+   ============================================================ */
+
+/* o indicador de progresso é uma muleta de cena com pin. No celular
+   metade das cenas perde o pin e ele acaba caindo em cima do texto. */
+@media(max-width:899px){ .prog{display:none} }
+
+/* o valor do bônus estava sendo achatado por .bon__it p */
+.bon__it .bon__val{font-size:clamp(1.8rem,3.6vw,2.9rem)}
+
+@media(max-width:619px){
+
+  /* ---- corpo: uma medida só na página inteira ---- */
+  .intro__side p,.voce__p,.outra__text p,.pil__body p,.dias__grid p,
+  .bon__it p,.inv__list li,.esc__text p,.fim__after p,.sala__after p,
+  .show__after p,.pal__col p,.tres__side p,.g10__disc,.ing__card li,
+  .hist__note,.hist__endsub,.cris__text p,.mesa__col p,.edit__body,
+  .prova__lead p,.bon__intro{font-size:16.5px;line-height:1.6}
+
+  .lineup__d,.foot__s,.foot__d,.mg__mlbl,.ing__inst{font-size:14px;line-height:1.5}
+
+  /* ---- títulos de seção: todos na mesma faixa ---- */
+  .h-2,.sala__title,.g10__t,.mg__l--t,.outra__text .h-2,
+  .inv__top .h-2,.esc__text .h-2{font-size:clamp(1.9rem,8.8vw,2.15rem);line-height:1.06}
+  .hist__big{font-size:clamp(2.2rem,10.6vw,2.65rem)}
+  .hist__end,.sala__e2,.inv__big,.fim__t3{font-size:clamp(1.85rem,8.4vw,2.15rem)}
+  .mesa__final{font-size:clamp(2.15rem,10.4vw,2.75rem);max-width:none;line-height:1.04}
+  .pal__l{font-size:clamp(2rem,9.2vw,2.3rem)}
+  .fim__t1{font-size:clamp(1.7rem,7.6vw,1.95rem)}
+  .show__line,.fecho{font-size:clamp(1.6rem,7.2vw,1.85rem)}
+  .tese,.edit__anchor,.kill__l{font-size:clamp(1.75rem,8vw,2rem)}
+
+  /* ---- os momentos de impacto continuam grandes ---- */
+  .nona{font-size:clamp(3.4rem,16.4vw,4.2rem)}
+  .amb__word{font-size:clamp(3.2rem,17.4vw,4.4rem)}
+  .fim__you{font-size:clamp(4.4rem,22.5vw,5.8rem)}
+  .tres__big{font-size:clamp(2.6rem,12.8vw,3.3rem)}
+  .mg__big b,.esc__closed b,.esc__open b{font-size:clamp(2.9rem,13.8vw,3.6rem)}
+  .pil__t{font-size:clamp(2.2rem,10.2vw,2.6rem)}
+  .ing__price{font-size:clamp(1.9rem,8.8vw,2.2rem)}
+
+  /* ---- apoio: sub-títulos e frases de ligação ---- */
+  .intro__lead{font-size:clamp(1.25rem,5.6vw,1.45rem)}
+  .amb__def,.amb__payoff,.sala__n,.inv__cost li,.bon__it h3,
+  .tres__k,.pil__k,.pal__kill,.mesa__bridge{font-size:clamp(1.08rem,4.9vw,1.25rem)}
+  .cris__split,.g10__body .edit__body,.mg__l--sm,.quatro li,
+  .lineup__list b,.dias__grid b{font-size:clamp(1.15rem,5.2vw,1.35rem)}
+  .mesa__q{font-size:clamp(1.1rem,5vw,1.3rem)}
+  .hist__nums b{font-size:clamp(1.9rem,8.6vw,2.2rem)}
+  .hist__nums span{font-size:13.5px}
+
+  /* ---- a legenda do case herdava o alinhamento à direita do desktop ---- */
+  .mg__cap{text-align:left;max-width:none}
+}
+
+/* o dock estava cortando a frase no meio e brigando com a barra do Safari */
+.dock__in{gap:12px}
+.dock__p{min-width:0;flex:1 1 auto}
+.dock .btn{flex:0 0 auto;white-space:nowrap}
+@media(max-width:619px){
+  .dock{padding:10px var(--gut) calc(14px + env(safe-area-inset-bottom))}
+  /* duas linhas curtas em vez de reticências comendo o preço */
+  .dock__p{font-size:10.5px;letter-spacing:.05em;line-height:1.3;white-space:normal;max-width:19ch}
+  .dock .btn{min-height:46px;padding-inline:16px;font-size:12px;letter-spacing:.04em}
+}
+@media(max-width:359px){ .dock__p{display:none} }
