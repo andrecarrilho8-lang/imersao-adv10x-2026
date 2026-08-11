@@ -150,15 +150,15 @@ blockquote{
   min-height:56px;padding:0 clamp(26px,3vw,40px);
   background:var(--gold);color:#050505;
   font-family:var(--display);font-weight:600;font-size:14px;
-  letter-spacing:.055em;text-transform:uppercase;text-decoration:none;
+  letter-spacing:.055em;text-transform:uppercase;text-decoration:none;text-align:center;line-height:1.25;
   border:1px solid var(--gold);border-radius:2px;
   transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
   will-change:transform;
 }
 .btn:hover{background:var(--gold-hi);border-color:var(--gold-hi);transform:translateY(-2px)}
 .btn:active{transform:translateY(0)}
-.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
-.btn--ghost:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
+.btn--ghost{background:rgba(200,168,78,.06);color:var(--gold-hi);border-color:rgba(200,168,78,.5)}
+.btn--ghost:hover{background:rgba(200,168,78,.14);color:var(--gold-hi);border-color:var(--gold)}
 .btn--lg{min-height:64px;font-size:15px}
 .btn--sm{min-height:46px;padding:0 20px;font-size:12.5px;letter-spacing:.05em}
 .cta-row{padding-top:clamp(40px,6vw,80px);display:flex;justify-content:center}
