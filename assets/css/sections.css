@@ -847,3 +847,10 @@
   /* os dois ingressos com o mesmo peso de botão */
   .ing__card .btn{min-height:60px;padding-inline:14px;font-size:12.5px}
 }
+
+/* A primeira dobra tem que ocupar a tela inteira no celular, inclusive nos
+   navegadores embutidos, onde 100svh vem menor do que a area visivel.
+   --app-h e escrito no <head> a partir do innerHeight. */
+@media(max-width:899px){
+  .hero{min-height:var(--app-h,100svh)}
+}
