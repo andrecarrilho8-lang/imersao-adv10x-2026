@@ -16,11 +16,13 @@ export default function marcelo(gsap, ScrollTrigger, mm) {
   const vids = [...sec.querySelectorAll('.mg__v')];
   const money = sec.querySelector('[data-money]');
 
-  /* percurso: quanto de rolagem cada unidade de tempo vale, em % de viewport */
-  const cena = (percurso) => {
+  /* percurso: quanto de rolagem cada unidade de tempo vale, em % de viewport.
+     PESO: quanto de tempo cada bloco ocupa. ENTRA/SAI: as transições — o que
+     sobra entre elas é o tempo em que a frase fica parada, legível. No celular
+     o texto é mais longo em linhas, então o platô precisa ser maior: pesos
+     maiores e transições mais curtas.                                        */
+  const cena = (percurso, PESO, ENTRA, SAI) => {
     const SLOT = .9;
-    // o bloco do valor precisa de mais tela: tem legenda, número subindo e citação
-    const PESO = [.85, .85, .85, .85, .85, 3.1, 1.15];
     const inicio = steps.map((_, i) => PESO.slice(0, i).reduce((a, b) => a + b, 0) * SLOT);
     const dura = i => (PESO[i] || 1) * SLOT;
     const fim = inicio[steps.length - 1] + dura(steps.length - 1);
@@ -38,8 +40,8 @@ export default function marcelo(gsap, ScrollTrigger, mm) {
 
     steps.forEach((s, i) => {
       const t = inicio[i];
-      tl.to(s, { opacity: 1, y: 0, duration: .34, ease: 'expo.out' }, t);
-      if (i < steps.length - 1) tl.to(s, { opacity: 0, y: -14, duration: .28, ease: 'power1.in' }, t + dura(i) - .28);
+      tl.to(s, { opacity: 1, y: 0, duration: ENTRA, ease: 'expo.out' }, t);
+      if (i < steps.length - 1) tl.to(s, { opacity: 0, y: -14, duration: SAI, ease: 'power1.in' }, t + dura(i) - SAI);
     });
 
     swap(gsap, tl, vids, [inicio[3]], .5);
@@ -57,6 +59,7 @@ export default function marcelo(gsap, ScrollTrigger, mm) {
     return () => { tl.scrollTrigger && tl.scrollTrigger.kill(); tl.kill(); };
   };
 
-  mm.add('(min-width: 900px)', () => cena(31));
-  mm.add('(max-width: 899px)', () => cena(23));
+  // o bloco do valor precisa de mais tela: tem legenda, número subindo e citação
+  mm.add('(min-width: 900px)', () => cena(31, [.85, .85, .85, .85, .85, 3.1, 1.15], .34, .28));
+  mm.add('(max-width: 899px)', () => cena(34, [1.2, 1.2, 1.2, 1.2, 1.2, 3.1, 1.5], .26, .22));
 }
