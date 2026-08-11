@@ -21,6 +21,24 @@
 <script>
   (function(){
     var h = document.documentElement;
+
+    /* 100svh erra a conta nos navegadores embutidos (WhatsApp, Instagram):
+       a primeira dobra abre menor do que a tela e deixa aparecer um pedaco
+       da proxima. innerHeight e o que o navegador realmente mostra.
+       Variacao pequena e so a barra de endereco subindo — essa a gente ignora. */
+    var alt = 0;
+    function medir(){
+      var n = window.innerHeight;
+      if (!n || Math.abs(n - alt) < 120) return;
+      alt = n;
+      h.style.setProperty('--app-h', n + 'px');
+    }
+    medir();
+    window.addEventListener('resize', medir);
+    window.addEventListener('orientationchange', function(){
+      setTimeout(function(){ alt = 0; medir(); }, 300);
+    });
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     h.className += ' motion';
     setTimeout(function(){
