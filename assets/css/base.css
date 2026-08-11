@@ -21,7 +21,7 @@
   --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --serif:'Instrument Serif','Iowan Old Style',Palatino,Georgia,serif;
 
-  --gut:clamp(20px,5.2vw,72px);
+  --gut:clamp(20px,5.2vw,72px);   /* no celular vira 30px fixos, mais abaixo */
   --shell:1280px;
   /* medidas de texto — a caixa é sempre a mesma, quem varia é a linha */
   --m-read:780px;    /* corpo de leitura */
@@ -31,6 +31,10 @@
   --sp-sec:clamp(64px,8vw,128px);    /* respiro entre seções */
   --ease:cubic-bezier(.22,.61,.36,1);
 }
+
+/* margem do celular: 30px de cada lado, e um pouco menos nos aparelhos estreitos */
+@media(max-width:619px){ :root{ --gut:30px } }
+@media(max-width:359px){ :root{ --gut:22px } }
 
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}

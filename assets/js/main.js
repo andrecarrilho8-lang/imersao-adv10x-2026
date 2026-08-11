@@ -20,6 +20,7 @@ import marcelo from './scenes/marcelo.js';
 import fim from './scenes/fim.js';
 import tres from './scenes/tres.js';
 import oferta from './scenes/oferta.js';
+import progresso from './scenes/progresso.js';
 
 const SCENES = [hero, hist, mesa, ambiencia, sala, palestra, marcelo, fim];
 
@@ -78,6 +79,7 @@ function anchors() {
       run(editorial, 'editorial');
       run(tres, 'tres');
       run(oferta, 'oferta');
+      run(progresso, 'progresso');
       dock(ScrollTrigger);
     });
   };

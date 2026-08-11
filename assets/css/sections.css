@@ -722,9 +722,24 @@
    no desktop, comprimidos para caber em 390px.
    ============================================================ */
 
-/* o indicador de progresso é uma muleta de cena com pin. No celular
-   metade das cenas perde o pin e ele acaba caindo em cima do texto. */
-@media(max-width:899px){ .prog{display:none} }
+/* No celular a barrinha sai de dentro da cena e vira um elemento fixo no
+   rodapé: acompanha a rolagem em todas as seis cenas, inclusive nas duas que
+   perdem o pin, e nunca cai em cima do texto. Quem alimenta é o progresso.js. */
+@media(max-width:899px){
+  .prog{
+    position:fixed;left:var(--gut);right:auto;bottom:18px;z-index:60;
+    gap:11px;padding:8px 14px;border-radius:99px;
+    background:rgba(5,5,5,.74);backdrop-filter:saturate(140%) blur(10px);
+    border:1px solid var(--line-2);
+    opacity:0;transform:translateY(8px);
+    transition:opacity .35s var(--ease),transform .35s var(--ease);
+  }
+  .prog.is-on{opacity:1;transform:translateY(0)}
+  .prog__n{font-size:10px;letter-spacing:.13em}
+  .prog__bar{width:52px}
+  /* o CTA fixo tem prioridade no rodapé */
+  .dock-on .prog{opacity:0!important;transform:translateY(8px)}
+}
 
 /* o valor do bônus estava sendo achatado por .bon__it p */
 .bon__it .bon__val{font-size:clamp(1.8rem,3.6vw,2.9rem)}
