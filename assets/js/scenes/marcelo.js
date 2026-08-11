@@ -1,0 +1,74 @@
+import { prog } from '../utils/prog.js';
+/* marcelo.js — sete estados: conversa, frase, chave, nascimento da ideia,
+   posicionamento, número e conclusão. O ambiente está lá desde o começo. */
+
+import { swap } from '../utils/seq.js';
+
+export default function marcelo(gsap, ScrollTrigger, mm) {
+  const sec = document.querySelector('.mg');
+  if (!sec) return;
+  const onProg = prog(sec, 7);
+
+  const pin = sec.querySelector('.mg__pin');
+  const steps = [...sec.querySelectorAll('.mg__l')];
+  const vids = [...sec.querySelectorAll('.mg__v')];
+  const money = sec.querySelector('[data-money]');
+
+  mm.add('(min-width: 900px)', () => {
+    const SLOT = .9;
+    // o bloco do valor precisa de mais tela: tem legenda, número subindo e citação
+    const PESO = [.85, .85, .85, .85, .85, 3.1, 1.15];
+    const inicio = steps.map((_, i) => PESO.slice(0, i).reduce((a, b) => a + b, 0) * SLOT);
+    const dura = i => (PESO[i] || 1) * SLOT;
+    const fim = inicio[steps.length - 1] + dura(steps.length - 1);
+
+    gsap.set(steps, { opacity: 0, y: 20 });
+    gsap.set(vids[0], { opacity: 1 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sec, start: 'top top', end: '+=' + Math.round(fim * 31) + '%',
+        scrub: .7, pin, anticipatePin: 1, invalidateOnRefresh: true,
+        onUpdate: onProg
+      }
+    });
+
+    steps.forEach((s, i) => {
+      const t = inicio[i];
+      tl.to(s, { opacity: 1, y: 0, duration: .34, ease: 'expo.out' }, t);
+      if (i < steps.length - 1) tl.to(s, { opacity: 0, y: -14, duration: .28, ease: 'power1.in' }, t + dura(i) - .28);
+    });
+
+    swap(gsap, tl, vids, [inicio[3]], .5);
+
+    // o número só começa a subir depois que a legenda teve tempo de ser lida
+    if (money) {
+      const o = { n: 0 };
+      tl.to(o, {
+        n: 550000, duration: dura(5) * .55, ease: 'power2.out',
+        onUpdate: () => { money.textContent = Math.round(o.n).toLocaleString('pt-BR'); }
+      }, inicio[5]);
+    }
+
+    tl.to({}, { duration: .5 });
+    return () => { tl.scrollTrigger && tl.scrollTrigger.kill(); tl.kill(); };
+  });
+
+  mm.add('(max-width: 899px)', () => {
+    gsap.set(steps, { opacity: 0, y: 18 });
+    const ts = steps.map(s => gsap.to(s, {
+      opacity: 1, y: 0, duration: .65, ease: 'power2.out',
+      scrollTrigger: { trigger: s, start: 'top 88%', once: true }
+    }));
+    let c = null;
+    if (money) {
+      const o = { n: 0 };
+      c = gsap.to(o, {
+        n: 550000, duration: 1.4, ease: 'power2.out',
+        scrollTrigger: { trigger: money, start: 'top 85%', once: true },
+        onUpdate: () => { money.textContent = Math.round(o.n).toLocaleString('pt-BR'); }
+      });
+    }
+    return () => { ts.forEach(t => t.scrollTrigger && t.scrollTrigger.kill()); c && c.scrollTrigger && c.scrollTrigger.kill(); };
+  });
+}

@@ -1,0 +1,289 @@
+/* ============================================================
+   IMERSÃO ADVOGADO 10X · 9ª EDIÇÃO
+   base.css — tokens, reset, tipografia, primitivas
+   ============================================================ */
+
+:root{
+  --bg:#050505;      /* preto absoluto  */
+  --bg-2:#0A0A0B;    /* carvão          */
+  --bg-3:#0F0F11;    /* grafite         */
+  --bg-4:#141416;    /* grafite claro   */
+  --ink:#F5F3EE;
+  --ink-2:#A8A49B;      /* texto secundário */
+  --ink-3:#6B6862;      /* terciário / legendas */
+  --gold:#C8A84E;
+  --gold-hi:#E2CB8C;
+  --line:rgba(245,243,238,.11);
+  --line-2:rgba(245,243,238,.055);
+
+  --display:'Instrument Sans','Geist','Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
+  --text:'Geist','Helvetica Neue',Helvetica,Arial,system-ui,sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:'Instrument Serif','Iowan Old Style',Palatino,Georgia,serif;
+
+  --gut:clamp(20px,5.2vw,72px);
+  --shell:1280px;
+  /* medidas de texto — a caixa é sempre a mesma, quem varia é a linha */
+  --m-read:780px;    /* corpo de leitura */
+  --m-disp:980px;    /* frases-âncora e títulos de bloco */
+  /* eixo esquerdo da página para elementos soltos, fora de uma .shell */
+  --edge:max(var(--gut), calc((100vw - var(--shell)) / 2 + var(--gut)));
+  --sp-sec:clamp(64px,8vw,128px);    /* respiro entre seções */
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--text);
+  font-size:clamp(15.5px,1.05vw,17.5px);
+  line-height:1.62;
+  font-weight:400;
+  letter-spacing:.002em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img,video{display:block;max-width:100%}
+a{color:inherit}
+ul,ol{margin:0;padding:0;list-style:none}
+h1,h2,h3,h4,p,figure,blockquote{margin:0}
+button{font:inherit}
+
+::selection{background:var(--gold);color:#050505}
+
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:200;
+  background:var(--gold);color:#050505;padding:12px 18px;font-weight:600;
+}
+.skip:focus{left:12px;top:12px}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:2px}
+
+/* ---------------- layout ---------------- */
+.shell{width:100%;max-width:var(--shell);margin-inline:auto;padding-inline:var(--gut)}
+.read{max-width:60ch}
+.read--wide{max-width:68ch}
+.read p+p{margin-top:1.15em}
+.center{text-align:center}
+section{position:relative}
+
+/* ---------------- tipografia ---------------- */
+.h-display{
+  font-family:var(--display);
+  font-weight:500;
+  font-size:clamp(2.1rem,4.6vw,4.3rem);
+  line-height:1.02;
+  letter-spacing:-.028em;
+  text-wrap:balance;
+}
+.h-2{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(1.85rem,4.4vw,3.9rem);
+  line-height:1.02;
+  letter-spacing:-.03em;
+  text-wrap:balance;
+  margin-bottom:.75em;
+}
+.h-3{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:clamp(1.35rem,2.5vw,2.1rem);
+  line-height:1.12;
+  letter-spacing:-.022em;
+  margin-bottom:.6em;
+}
+.eyebrow,.kicker,.mono{
+  font-family:var(--mono);
+  font-size:clamp(10px,.78vw,11.5px);
+  font-weight:400;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  font-feature-settings:"tnum";
+}
+.kicker{color:var(--gold);margin-bottom:1.4em}
+.eyebrow .sep{display:inline-block;width:26px;height:1px;background:currentColor;vertical-align:middle;margin:0 12px;opacity:.5}
+.lead{font-size:clamp(1.06rem,1.55vw,1.35rem);line-height:1.5;color:var(--ink)}
+p{color:var(--ink-2)}
+b,strong{color:var(--ink);font-weight:600}
+.gold{color:var(--gold)}
+em{font-style:normal;color:var(--gold)}
+.dot{display:inline-block;width:3px;height:3px;border-radius:50%;background:currentColor;vertical-align:middle;margin:0 12px;opacity:.55}
+
+.pull{
+  font-family:var(--display);
+  font-weight:500;
+  font-size:clamp(1.3rem,2.5vw,2.05rem);
+  line-height:1.15;
+  letter-spacing:-.025em;
+  color:var(--ink);
+  margin-top:1.5em;
+  text-wrap:balance;
+}
+.pull--gold{color:var(--gold-hi)}
+.pull--big{font-size:clamp(2rem,5.5vw,4.4rem);letter-spacing:-.035em;line-height:.98;font-weight:600}
+
+blockquote{
+  font-family:var(--serif);
+  font-size:clamp(1.25rem,2.2vw,1.85rem);
+  line-height:1.28;
+  color:var(--ink);
+  font-style:italic;
+  padding-left:clamp(16px,2vw,26px);
+  border-left:1px solid var(--gold);
+  margin:1.8em 0;
+}
+
+/* ---------------- botões ---------------- */
+.btn{
+  --bh:1;
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  min-height:56px;padding:0 clamp(26px,3vw,40px);
+  background:var(--gold);color:#050505;
+  font-family:var(--display);font-weight:600;font-size:14px;
+  letter-spacing:.055em;text-transform:uppercase;text-decoration:none;
+  border:1px solid var(--gold);border-radius:2px;
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
+  will-change:transform;
+}
+.btn:hover{background:var(--gold-hi);border-color:var(--gold-hi);transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn--ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
+.btn--lg{min-height:64px;font-size:15px}
+.btn--sm{min-height:46px;padding:0 20px;font-size:12.5px;letter-spacing:.05em}
+.cta-row{padding-top:clamp(40px,6vw,80px);display:flex;justify-content:center}
+
+/* ---------------- mídia ---------------- */
+.v{width:100%;height:100%;object-fit:cover;background:#0A0A0A}
+.frame{position:relative;overflow:hidden;background:#0A0A0A;border-radius:2px}
+.frame--wide{aspect-ratio:16/9}
+.frame--tall{aspect-ratio:3/4}
+.frame video,.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.only-mobile{display:none}
+
+.logo{width:clamp(120px,11vw,168px);height:auto;opacity:.95}
+.logo--lg{width:clamp(160px,18vw,220px);margin-inline:auto}
+
+/* ---------------- cena tipográfica genérica ---------------- */
+
+.statement{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(2.6rem,8.2vw,7.6rem);
+  line-height:.92;letter-spacing:-.042em;color:var(--ink);
+  text-wrap:balance;
+}
+.statement em{color:var(--gold)}
+.statement--md{font-size:clamp(2rem,5.4vw,4.6rem);letter-spacing:-.035em;line-height:1.0}
+.statement--gold{color:var(--gold-hi)}
+.statement+.statement{margin-top:.18em}
+.statement__sub{
+  margin-top:clamp(28px,4vw,52px);
+  max-width:44ch;font-size:clamp(1rem,1.4vw,1.2rem);line-height:1.5;color:var(--ink-2);
+}
+.statement__sub b{color:var(--ink)}
+
+/* ---------------- atmosfera ----------------
+   Névoa: duas manchas muito lentas por trás do conteúdo, só para o preto
+   não ser chapado. Sem blur (caro) — o próprio gradiente já é macio.
+   Poeira: canvas com poucas partículas, montado pelo poeira.js.        */
+.tem-nevoa{position:relative;isolation:isolate}
+.tem-nevoa>*:not(.nevoa){position:relative;z-index:1}
+.nevoa{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.nevoa::before,.nevoa::after{content:"";position:absolute;border-radius:50%;will-change:transform}
+.nevoa::before{
+  width:min(64vw,900px);aspect-ratio:1;left:-14%;top:-32%;
+  background:radial-gradient(circle,rgba(200,168,78,.052),rgba(200,168,78,.018) 46%,transparent 70%);
+  animation:nevoaA 38s ease-in-out infinite alternate;
+}
+.nevoa::after{
+  width:min(58vw,820px);aspect-ratio:1;right:-16%;bottom:-36%;
+  background:radial-gradient(circle,rgba(245,243,238,.038),rgba(245,243,238,.012) 48%,transparent 72%);
+  animation:nevoaB 52s ease-in-out infinite alternate;
+}
+@keyframes nevoaA{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(7vw,5vh,0) scale(1.16)}}
+@keyframes nevoaB{from{transform:translate3d(0,0,0) scale(1.12)}to{transform:translate3d(-6vw,-4vh,0) scale(.95)}}
+
+.poeira{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen}
+
+@media(prefers-reduced-motion:reduce){
+  .nevoa::before,.nevoa::after{animation:none}
+  .poeira{display:none}
+}
+
+/* ---------------- dock (CTA fixo · só no fim) ---------------- */
+.dock{
+  position:fixed;left:0;right:0;bottom:0;z-index:90;
+  transform:translateY(110%);
+  transition:transform .5s var(--ease);
+  background:rgba(5,5,5,.92);
+  backdrop-filter:saturate(140%) blur(14px);
+  border-top:1px solid var(--line);
+  padding:12px var(--gut) calc(12px + env(safe-area-inset-bottom));
+  pointer-events:none;
+}
+.dock.is-on{transform:translateY(0);pointer-events:auto}
+.dock__in{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:var(--shell);margin-inline:auto}
+.dock__p{font-family:var(--display);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+@media(min-width:900px){.dock{display:none}}
+
+/* ---------------- rodapé ---------------- */
+.foot{border-top:1px solid var(--line-2);padding-block:clamp(70px,10vw,140px) clamp(50px,7vw,90px);text-align:center}
+.foot__in>*+*{margin-top:18px}
+.foot__t{font-family:var(--display);font-size:clamp(13px,1.1vw,15px);letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+.foot__t .sep{display:inline-block;width:20px;height:1px;background:var(--gold);vertical-align:middle;margin:0 12px}
+.foot__s{color:var(--ink-3);font-size:14px}
+.foot__d{color:var(--ink-2);font-size:14px;letter-spacing:.02em}
+.foot .btn{margin-top:34px}
+.foot__legal{max-width:62ch;margin:44px auto 0;font-size:11.5px;line-height:1.7;color:#4E4B47}
+
+/* ============================================================
+   MOTION
+   A página é inteiramente legível sem JavaScript e sem GSAP.
+   A classe .motion entra no <html> por um script inline no <head>
+   (e sai de novo se o GSAP não carregar). Tudo que começa escondido
+   ou reposicionado vive atrás dela.
+   ============================================================ */
+.motion [data-rise]{opacity:0}
+.motion [data-step],.motion [data-st],.motion [data-q],.motion [data-sn]{opacity:0}
+.motion [data-lines]{opacity:0}
+.motion .sala__end,.motion .amb__payoff{opacity:0}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .motion [data-rise],.motion [data-step],.motion [data-st],.motion [data-q],.motion [data-sn],.motion [data-lines],.motion .sala__end,.motion .amb__payoff,.motion .edit__anchor,.motion .tese,.motion .fecho,.motion .nona,.motion .quatro li{opacity:1!important;transform:none!important}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+
+/* ─── assinatura tipográfica dos títulos ─── */
+.h-2,.h-3{position:relative}
+.rule{display:block;width:100%;height:1px;background:var(--line-2);margin:clamp(22px,3vw,38px) 0}
+.rule--gold{background:linear-gradient(90deg,var(--gold),transparent 42%)}
+.tick{display:inline-flex;align-items:center;gap:10px}
+.tick::before{content:"";width:clamp(18px,2.4vw,34px);height:1px;background:var(--gold);flex:0 0 auto}
+u,.uline{text-decoration:none;background-image:linear-gradient(currentColor,currentColor);
+  background-size:100% 1px;background-position:0 92%;background-repeat:no-repeat;padding-bottom:.04em}
+.g{color:var(--gold)}
+.num{font-family:var(--mono);font-feature-settings:"tnum";letter-spacing:-.01em}
+
+/* ─── superfícies ─── */
+.s-1{background:var(--bg)}
+.s-2{background:var(--bg-2)}
+.s-3{background:var(--bg-3)}
+.s-grad{background:linear-gradient(180deg,var(--bg),var(--bg-2) 45%,var(--bg))}
+
+/* ─── indicador de progresso das cenas longas ─── */
+/* alinhado ao mesmo eixo da .shell, inclusive acima de 1280px */
+.prog{position:absolute;z-index:6;left:var(--edge);bottom:clamp(18px,3.4vh,32px);
+  display:flex;align-items:center;gap:14px;pointer-events:none}
+.prog__n{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-2);font-feature-settings:"tnum"}
+.prog__n b{color:var(--gold);font-weight:400}
+.prog__bar{position:relative;width:clamp(64px,10vw,140px);height:1px;background:rgba(245,243,238,.20);overflow:hidden}
+.prog__bar i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:0 50%}
+@media(max-width:619px){.prog{gap:10px}.prog__bar{width:56px}}
