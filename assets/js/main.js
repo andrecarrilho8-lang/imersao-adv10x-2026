@@ -63,6 +63,17 @@ function anchors() {
   gsap.registerPlugin(window.ScrollTrigger);
   const ScrollTrigger = window.ScrollTrigger;
   ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* No celular o navegador rola numa thread e o GSAP desenha em outra: em cenas
+     com pin isso aparece como um "atraso" — o bloco fixo escorrega meio quadro
+     atrás do resto. O normalizeScroll assume a rolagem por toque e sincroniza
+     as duas coisas no mesmo quadro. Só faz sentido onde existe toque. */
+  const toque = matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (toque && ScrollTrigger.normalizeScroll) {
+    try { ScrollTrigger.normalizeScroll({ type: 'touch', allowNestedScroll: true }); }
+    catch (err) { console.error('[normalizeScroll]', err); }
+  }
+
   document.documentElement.classList.add('motion');
 
   let ctx;
