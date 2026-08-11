@@ -729,7 +729,8 @@
   .prog{
     position:fixed;left:var(--gut);right:auto;bottom:18px;z-index:60;
     gap:11px;padding:8px 14px;border-radius:99px;
-    background:rgba(5,5,5,.74);backdrop-filter:saturate(140%) blur(10px);
+    background:rgba(5,5,5,.74);
+    -webkit-backdrop-filter:saturate(140%) blur(10px);backdrop-filter:saturate(140%) blur(10px);
     border:1px solid var(--line-2);
     opacity:0;transform:translateY(8px);
     transition:opacity .35s var(--ease),transform .35s var(--ease);
@@ -800,3 +801,49 @@
   .dock .btn{min-height:46px;padding-inline:16px;font-size:12px;letter-spacing:.04em}
 }
 @media(max-width:359px){ .dock__p{display:none} }
+
+/* ============================================================
+   PASSE DE FLUIDEZ E DESTAQUE (mobile)
+   ============================================================ */
+
+/* "Todo crescimento começa pela referência": o paredão virou ritmo */
+.mesa__ancora{
+  font-family:var(--display);font-weight:500;
+  font-size:clamp(1.35rem,2.6vw,2.05rem);line-height:1.14;letter-spacing:-.028em;
+  color:var(--ink);max-width:24ch;margin-top:clamp(6px,1vw,10px);
+}
+.dificil{margin-top:clamp(22px,2.8vw,34px);border-top:1px solid var(--line-2)}
+.dificil li{
+  padding-block:clamp(14px,1.8vw,20px);border-bottom:1px solid var(--line-2);
+  font-size:clamp(1rem,1.3vw,1.22rem);line-height:1.5;color:var(--ink-2);
+}
+
+/* a frase que abre a história do Cristiano pede mais presença */
+.cris__t{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(1.55rem,3.1vw,2.5rem);line-height:1.06;letter-spacing:-.03em;
+  color:var(--ink);margin-top:clamp(14px,1.8vw,22px);max-width:20ch;
+}
+.cris__text>.edit__rule{margin-bottom:0}
+
+/* o bloco editorial nunca pode ser coberto pela cena com pin que vem antes */
+.edit{position:relative;z-index:2}
+
+@media(max-width:619px){
+  .mesa__ancora{font-size:clamp(1.35rem,6.2vw,1.7rem);max-width:none}
+  .dificil li{font-size:16.5px}
+  .cris__t{font-size:clamp(1.6rem,7.4vw,2rem);max-width:none}
+  /* o retrato ocupava uma tela inteira */
+  .cris__port{aspect-ratio:3/4;max-width:none}
+
+  /* pintura cara no rodapé enquanto a página rola: fundo sólido resolve */
+  .prog{
+    background:#0B0B0C;-webkit-backdrop-filter:none;backdrop-filter:none;
+    border-color:var(--line);
+  }
+  /* mistura de camadas sobre vídeo é o que mais custa no celular */
+  .bruma{mix-blend-mode:normal;opacity:.6}
+
+  /* os dois ingressos com o mesmo peso de botão */
+  .ing__card .btn{min-height:60px;padding-inline:14px;font-size:12.5px}
+}
