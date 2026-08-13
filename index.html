@@ -779,26 +779,6 @@
   </div>
 </div>
 
-<!-- o clique no ingresso avisa o Meta antes de sair da página -->
-<script>
-  (function () {
-    var preco = { classic: 2700, vip: 4200 };
-    var nome = { classic: 'Ingresso Classic', vip: 'Ingresso VIP' };
-    document.querySelectorAll('[data-cta]').forEach(function (a) {
-      a.addEventListener('click', function () {
-        if (!window.fbq) return;
-        var k = a.dataset.cta;
-        fbq('track', 'InitiateCheckout', {
-          content_name: nome[k] || k,
-          content_category: 'Imersão Advogado 10X · 9ª edição',
-          value: preco[k] || 0,
-          currency: 'BRL'
-        });
-      });
-    });
-  })();
-</script>
-
 <script src="assets/js/vendor/gsap.min.js" defer></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
 <script type="module" src="assets/js/main.js"></script>
