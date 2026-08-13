@@ -46,6 +46,19 @@
     }, 1500);
   })();
 </script>
+
+<!-- Meta Pixel -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','878618785604758');
+  fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=878618785604758&amp;ev=PageView&amp;noscript=1"></noscript>
 </head>
 <body>
 
@@ -692,7 +705,7 @@
           <li>E-book Google para Advogados</li>
           <li>Show de encerramento</li>
         </ul>
-        <a class="btn btn--ghost" href="#" data-cta="classic">Quero minha cadeira Classic</a>
+        <a class="btn btn--ghost" href="https://pay.hotmart.com/B105254484K?off=djdrws0u&amp;bid=1785236033862" data-cta="classic">Quero minha cadeira Classic</a>
       </article>
 
       <article class="ing__card ing__card--vip" data-card="2">
@@ -709,7 +722,7 @@
           <li><b>Lounge VIP.</b> Um ambiente ainda mais próximo dos membros do G10 durante os três dias.</li>
           <li><b>Mesa nominal no almoço</b>, com curadoria por área de atuação<!-- [CONFIRMAR SE ESTE BENEFÍCIO PERMANECE] --></li>
         </ul>
-        <a class="btn" href="#" data-cta="vip">Quero minha cadeira VIP</a>
+        <a class="btn" href="https://pay.hotmart.com/B105254484K?off=81rc000x&amp;bid=1785236039629" data-cta="vip">Quero minha cadeira VIP</a>
       </article>
 
     </div>
@@ -765,6 +778,26 @@
     <a class="btn btn--sm" href="#ingressos">Garantir cadeira</a>
   </div>
 </div>
+
+<!-- o clique no ingresso avisa o Meta antes de sair da página -->
+<script>
+  (function () {
+    var preco = { classic: 2700, vip: 4200 };
+    var nome = { classic: 'Ingresso Classic', vip: 'Ingresso VIP' };
+    document.querySelectorAll('[data-cta]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        if (!window.fbq) return;
+        var k = a.dataset.cta;
+        fbq('track', 'InitiateCheckout', {
+          content_name: nome[k] || k,
+          content_category: 'Imersão Advogado 10X · 9ª edição',
+          value: preco[k] || 0,
+          currency: 'BRL'
+        });
+      });
+    });
+  })();
+</script>
 
 <script src="assets/js/vendor/gsap.min.js" defer></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
